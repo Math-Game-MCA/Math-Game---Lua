@@ -27,7 +27,7 @@ function start_game(self) -- sets up game by creating cards and operations
 	msg.post(sidebar, "show")
 end
 
-function end_game(self) -- ends game by destroying objects
+function end_game(self, bool) -- ends game by destroying objects
 	-- end_game
 	
 	-- Empties variables
@@ -40,8 +40,16 @@ function end_game(self) -- ends game by destroying objects
 	local operations = msg.url("Operations#script")
 	msg.post(operations, "shuffle")
 	
+	local solve = msg.url("/game/Gui/solve#gui")
+	msg.post(solve, "hide")
+	
 	local sidebar = msg.url("/game/Gui/sidebar#gui")
-	msg.post(sidebar, "hide")
+	if (bool == true) then -- distinguish between ending round vs ending game
+		msg.post(sidebar, "end")
+	else
+		msg.post(sidebar, "hide")	
+	end
+	
 end
 
 function empty_variables(self)
@@ -114,7 +122,7 @@ function on_message(self, message_id, message, sender)
      
      if message_id == hash("end") then
      	print("END Game")
-    	 end_game(self)
+    	 end_game(self, true)
      	local main_menu = msg.url("/start/start#gui")
 		 msg.post(main_menu, "show")
      end
@@ -172,7 +180,7 @@ function on_message(self, message_id, message, sender)
 	 end
      
      if message_id == hash("game complete") then
-		end_game()
+		end_game(self, false)
 		local congrats = msg.url("/game/Gui/congrats#congrats")
 		msg.post(congrats, "show")
     	print("CHECKPOINT")
