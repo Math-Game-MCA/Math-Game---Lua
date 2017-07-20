@@ -17,6 +17,9 @@ function reset(self)
 	num1 = nil
 	num2 = nil
 	operation = nil
+	gui.reset_keyboard()
+	gui.hide_keyboard()
+	print("SOLVE RESET")
 	msg.post("#", "disable")
     msg.post(".", "release_input_focus")
 end
@@ -90,8 +93,9 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("solve") then
-       	msg.post("#", "enable")
+        msg.post("#", "enable")
         msg.post(".", "acquire_input_focus")
+        gui.show_keyboard(gui.KEYBOARD_TYPE_DEFAULT , false)
         num1 = message[1]
         num2 = message[2]
         calculate(self)
