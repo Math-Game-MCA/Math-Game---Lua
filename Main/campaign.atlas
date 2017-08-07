@@ -1,0 +1,51 @@
+images {
+  image: "/builtins/graphics/particle_blob.png"
+}
+images {
+  image: "/Main/images/arithmedia_planet.png"
+}
+images {
+  image: "/Main/images/arithmedia_title.png"
+}
+images {
+  image: "/Main/images/back_button.png"
+}
+images {
+  image: "/Main/images/campaign_background.png"
+}
+images {
+  image: "/Main/images/enter_button.png"
+}
+images {
+  image: "/Main/images/glow.png"
+}
+images {
+  image: "/Main/images/level_button.png"
+}
+images {
+  image: "/Main/images/next_button.png"
+}
+images {
+  image: "/Main/images/rationopia_planet.png"
+}
+images {
+  image: "/Main/images/rationopia_title.png"
+}
+images {
+  image: "/Main/images/star_empty_mini.png"
+}
+images {
+  image: "/Main/images/star_full.png"
+}
+images {
+  image: "/Main/images/star_full_mini.png"
+}
+images {
+  image: "/Main/images/background_faded.png"
+}
+images {
+  image: "/Main/images/exit.png"
+}
+margin: 0
+extrude_borders: 0
+inner_padding: 0
