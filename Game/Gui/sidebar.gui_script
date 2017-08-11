@@ -3,6 +3,7 @@ local game = false
 local c_score = 0 -- current score
 local f_score = 0 -- cumulative score
 local round_init_time = os.clock()
+local is_paused = false
 
 function init(self)
 	msg.post("#", "disable")
@@ -22,7 +23,17 @@ function update(self, dt)
 	if game then
 		--print(string.format("elapsed time: %.0f\n", os.clock() - round_init_time))
 		local time = gui.get_node("time")
-		gui.set_text(time, string.format("%.0f\n", os.clock() - round_init_time))
+		
+		local seconds_elapsed = math.floor(os.clock() - round_init_time)
+		local minutes_elapsed = 0
+		
+		if math.floor(seconds_elapsed/60) >= 1 then
+		  minutes_elapsed = math.floor(seconds_elapsed/60)
+		  seconds_elapsed = seconds_elapsed %60
+		end 
+
+		
+		gui.set_text(time, minutes_elapsed .. ":"..string.format("%02d",seconds_elapsed))
 	end
 end		
 
@@ -68,12 +79,16 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("drag") and action.pressed then
 		local exit = gui.get_node("exit")
-		local verifyButton = gui.get_node("verifyButton")
+		local verify_button = gui.get_node("verify")
+		local pause_button = gui.get_node("pause")
 		if gui.pick_node(exit, action.x, action.y) then
 			msg.post("/game/Board/Board#script", "end")
 		end
-		if gui.pick_node(verifyButton, action.x, action.y) then
+		if gui.pick_node(verify_button, action.x, action.y) then
 			msg.post("/game/Board/Verify/Controller#verify", "verify clicked")
 		end
+		if gui.pick_node(pause_button, action.x, action.y) then
+            print("Pause Pressed")
+        end
 	end
 end
