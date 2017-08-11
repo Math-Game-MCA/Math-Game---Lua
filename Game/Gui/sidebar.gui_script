@@ -48,7 +48,7 @@ function start_clock(self)
 	f_score = f_score + c_score
 	local points = gui.get_node("score")
 	gui.set_text(points, tostring(f_score))
-	round_init_time = os.clock()
+	unpause_time = os.clock()
 end
 
 function on_message(self, message_id, message, sender)
