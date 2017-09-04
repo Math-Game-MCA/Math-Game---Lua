@@ -1,0 +1,40 @@
+local world = "Arithmedia"
+
+-- Highway for switching between world and level menus
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show") then -- Main Menu -> World Screen
+		print("Worlds Built")
+		world_id = collectionfactory.create("#worldfactory")
+		--local w_id = world_id[hash("/Board")]
+		--msg.post(b_id, "start")	
+	end
+	if message_id == hash("end") then -- World Screen -> Main Menu
+		print("Worlds Destroyed")
+		local start = msg.url("/start/start#gui")
+	 	msg.post(start, "show")
+		go.delete_all(world_id)
+	end
+	if message_id == hash("change") then -- World Screen - > Level Screen
+		print("Level Screen")
+		go.delete_all(world_id)
+		levels_id = collectionfactory.create("#levelsfactory")
+		pprint(levels_id)
+		lev_id = levels_id[hash("/level_generator")]
+		--print(lev_id)
+		msg.post(lev_id, "show", {world})
+	end
+	if message_id == hash("back") then -- Level Screen -> World Screen
+		print("World Screen")
+		msg.post(lev_id, "hide")
+		go.delete_all(levels_id)
+		world_id = collectionfactory.create("#worldfactory")
+	end
+	if message_id == hash("game") then -- Level Screen -> Game
+		print("Game Initiated")
+		msg.post(lev_id, "hide")
+		go.delete_all(levels_id)
+		load_id = msg.url("/level/loading#loading")
+		msg.post(load_id, "show")
+	end
+end

@@ -6,6 +6,7 @@ local card_id
 local operation_id
 local connect = {}
 local card1, card2, holder = 1,2,3
+local game_type
 
 -- Board deals with all Board interactions
 
@@ -42,6 +43,8 @@ function end_game(self, bool) -- ends game by destroying objects
 	
 	local solve = msg.url("/game/Gui/solve#gui")
 	msg.post(solve, "hide")
+	
+	--msg.post("Verify/Controller#verify", "reset")
 	
 	local sidebar = msg.url("/game/Gui/sidebar#gui")
 	if (bool == true) then -- distinguish between ending round vs ending game
@@ -117,6 +120,8 @@ end
 function on_message(self, message_id, message, sender)
    	 if message_id == hash("start") then
      	print("START Game")
+         game_type = message[1]
+         print(game_type)
      	start_game(self) -- add more options to change parameters/constructor, ex. start_game(self, difficulty, mode)
      end
      
@@ -180,10 +185,14 @@ function on_message(self, message_id, message, sender)
 	 end
      
      if message_id == hash("game complete") then
-		end_game(self, false)
-		local congrats = msg.url("/game/Gui/congrats#congrats")
-		msg.post(congrats, "show")
-    	print("CHECKPOINT")
+    	--if(game_type == "practice") then
+			end_game(self, false)
+			local congrats = msg.url("/game/Gui/congrats#congrats")
+			msg.post(congrats, "show")
+    		print("CHECKPOINT")
+    	--else
+    	--	msg.post("#", "end")
+    	--end
      end
      
      if message_id == hash("next_round") then

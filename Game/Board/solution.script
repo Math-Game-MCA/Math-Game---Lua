@@ -6,7 +6,7 @@ function on_message(self, message_id, message, sender)
    if message_id == hash("solution") then
    		label.set_text("#V_Text", message[1])
    		print("SOLUTION RECIEVED")
-   		msg.post("/game/Board/Board#script", "solHolder", {go.get_id()}) -- sends position of solution holder
+   		msg.post("/game/Board/Board#Board", "solHolder", {go.get_id()}) -- sends position of solution holder
    end
 end
 

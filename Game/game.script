@@ -1,0 +1,10 @@
+-- CODE FOR DYNAMICALLY CREATING THE BOARD
+function on_message(self, message_id, message, sender)
+	 --if message_id == hash("start") then
+		--print("SHOWN")
+		--local board_id = collectionfactory.create("#boardfactory")
+		--local b_id = board_id[hash("/Board")]
+		--msg.post(b_id, "start") --To include more options to send	
+   --end
+end
+

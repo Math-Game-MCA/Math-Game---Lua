@@ -1,4 +1,12 @@
-script: "/Campaign/Guis/worlds.gui_script"
+script: "/Campaign/Guis/loading.gui_script"
+fonts {
+  name: "stencil"
+  font: "/Main/fonts/stencil.font"
+}
+textures {
+  name: "sprites"
+  texture: "/Main/sprites.atlas"
+}
 textures {
   name: "campaign"
   texture: "/Main/campaign.atlas"
@@ -11,8 +19,8 @@ background_color {
 }
 nodes {
   position {
-    x: 616.361
-    y: 153.19
+    x: 579.654
+    y: 361.056
     z: 0.0
     w: 1.0
   }
@@ -29,8 +37,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 270.0
-    y: 93.0
+    x: 1170.0
+    y: 733.0
     z: 0.0
     w: 1.0
   }
@@ -42,8 +50,8 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "campaign/enter_button"
-  id: "enter"
+  texture: "campaign/background_faded"
+  id: "space"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -65,8 +73,8 @@ nodes {
 }
 nodes {
   position {
-    x: 108.89
-    y: 624.514
+    x: 567.369
+    y: 146.55
     z: 0.0
     w: 1.0
   }
@@ -83,8 +91,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 60.0
-    y: 60.0
+    x: 151.0
+    y: 69.0
     z: 0.0
     w: 1.0
   }
@@ -96,8 +104,8 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "campaign/exit"
-  id: "exit"
+  texture: "sprites/forward_arrow"
+  id: "start"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -119,8 +127,8 @@ nodes {
 }
 nodes {
   position {
-    x: 630.379
-    y: 234.223
+    x: 572.352
+    y: 392.791
     z: 0.0
     w: 1.0
   }
@@ -131,14 +139,14 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 5.0
+    y: 5.0
     z: 1.0
     w: 1.0
   }
   size {
-    x: 70.0
-    y: 68.0
+    x: 200.0
+    y: 100.0
     z: 0.0
     w: 1.0
   }
@@ -148,82 +156,36 @@ nodes {
     z: 1.0
     w: 1.0
   }
-  type: TYPE_BOX
+  type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  texture: "campaign/star_full"
-  id: "star"
+  text: "LOADING"
+  font: "stencil"
+  id: "text"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
-  adjust_mode: ADJUST_MODE_FIT
-  layer: ""
-  inherit_alpha: true
-  slice9 {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 0.0
-  }
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
-  alpha: 1.0
-  template_node_child: false
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: 1019.367
-    y: 388.513
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
+  outline {
     x: 1.0
     y: 1.0
     z: 1.0
     w: 1.0
   }
-  size {
-    x: 60.0
-    y: 65.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
+  shadow {
     x: 1.0
     y: 1.0
     z: 1.0
     w: 1.0
   }
-  type: TYPE_BOX
-  blend_mode: BLEND_MODE_ALPHA
-  texture: "campaign/next_button"
-  id: "forward"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_NONE
-  pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
+  line_break: false
   layer: ""
   inherit_alpha: true
-  slice9 {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 0.0
-  }
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
   alpha: 1.0
+  outline_alpha: 1.0
+  shadow_alpha: 1.0
   template_node_child: false
-  size_mode: SIZE_MODE_AUTO
+  text_leading: 1.0
+  text_tracking: 0.0
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

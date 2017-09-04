@@ -1,0 +1,38 @@
+local numoflevels = 5
+local world = "Arithmedia"
+
+function init(self)
+	--print("I'M ALIVE!")
+	local my_url = msg.url()
+	--print(my_url)
+end
+
+function display_levels(self)
+	self.level = {}
+	for y = 1,numoflevels do
+     	local f_id = factory.create("#level_factory", vmath.vector3(100+ (160*y), 350, 0.90), nil, {number = y})
+        self.level[y] = {id = f_id, number = y, planet = world} 
+		--print(f_id)
+     	--self.card[y] = {id = id, number = cardnum[y], x = (130*y), y = 580, count = y, connect = 0, exist = 1}
+    end -- Creates Levels
+end
+
+function hide_levels(self)
+	for y = 1, numoflevels do
+		go.delete(self.level[y].id)
+		self.level[y] = nil
+	end	
+end
+
+function on_message(self, message_id, message, sender)
+	 if message_id == hash("show") then
+           world = message[1]
+           print(world)
+   		display_levels(self)
+     end
+     if message_id == hash("hide") then
+   		hide_levels(self)
+           print("Levels Hidden")
+     end
+end
+

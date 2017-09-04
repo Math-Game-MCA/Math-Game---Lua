@@ -32,10 +32,14 @@ function on_message(self, message_id, message, sender)
    		print("Verify clicked")
    		if cardOnVerify and solvePossible then
    			print("Solved!")
-   			msg.post("/game/Board/Board#script", "game complete")
+   			msg.post("/game/Board/Board#Board", "game complete")
    		end
    end
    if message_id == hash("card snapped") then
    		cardOnVerify = message[1]
    end
+   if message_id == hash("reset") then
+			solvePossible = false
+			cardOnVerify = false
+	end
 end

@@ -23,7 +23,7 @@ scale_along_z: 0
 embedded_instances {
   id: "Board"
   data: "components {\n"
-  "  id: \"script\"\n"
+  "  id: \"Board\"\n"
   "  component: \"/Game/Board/Board.script\"\n"
   "  position {\n"
   "    x: 0.0\n"

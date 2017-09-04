@@ -1,29 +1,24 @@
 function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
+	msg.post("#", "enable")
+    msg.post(".", "acquire_input_focus")
 end
 
 function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add input-handling code here
-	-- Remove this function if not needed
+	if action_id == hash("drag") and action.pressed then
+		local controller = msg.url("/level/controller#controller")	
+        exit = gui.get_node("exit")
+        enter = gui.get_node("enter")
+        
+        if gui.pick_node(exit, action.x, action.y) then
+             msg.post("#", "disable")
+        	msg.post(".", "release_input_focus")
+			msg.post(controller, "end") --To include more options to send
+		end
+		
+		if gui.pick_node(enter, action.x, action.y) then
+             msg.post("#", "disable")
+        	msg.post(".", "release_input_focus")
+			msg.post(controller, "change") --To include more options to send
+		end
+    end
 end

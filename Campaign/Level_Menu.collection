@@ -3,9 +3,9 @@ instances {
   id: "space"
   prototype: "/Campaign/Assets/space.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 584.533
+    y: 359.125
+    z: 0.2
   }
   rotation {
     x: 0.0
@@ -25,6 +25,21 @@ embedded_instances {
   data: "components {\n"
   "  id: \"level_factory\"\n"
   "  component: \"/Campaign/Level Data/level_factory.factory\"\n"
+  "  position {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "  }\n"
+  "  rotation {\n"
+  "    x: 0.0\n"
+  "    y: 0.0\n"
+  "    z: 0.0\n"
+  "    w: 1.0\n"
+  "  }\n"
+  "}\n"
+  "components {\n"
+  "  id: \"level_generator\"\n"
+  "  component: \"/Campaign/Scripts/level_generator.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"

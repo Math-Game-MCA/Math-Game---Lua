@@ -37,7 +37,7 @@ function on_input(self, action_id, action)
         		--notify everyone that the numbers have been solved
         		msg.post("/game/Board/Deck#script", "solved", {solution})
         		msg.post("/game/Board/Operations#script", "recall", {solution})
-        		msg.post("/game/Board/Board#script", "unconnect", {solution})
+        		msg.post("/game/Board/Board#Board", "unconnect", {solution})
         		
         		--closes gui
         		text = ""
@@ -48,7 +48,7 @@ function on_input(self, action_id, action)
         		--notify everyone that wrong answer was submitted, recall cards
         		msg.post("/game/Board/Deck#script", "recall", {solution})
         		msg.post("/game/Board/Operations#script", "recall", {solution})
-        		msg.post("/game/Board/Board#script", "unconnect", {solution})
+        		msg.post("/game/Board/Board#Board", "unconnect", {solution})
         		text = ""
         		local node = gui.get_node("text")
         		gui.set_text(node, text)
