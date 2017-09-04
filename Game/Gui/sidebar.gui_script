@@ -62,8 +62,10 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash("hide") then
 		game = false
 		local congrats = msg.url("congrats#congrats")
+		local scored = msg.url("/game/Gui/score#score")
 		c_score = get_c_score(self)
 		msg.post(congrats, "score", {c_score}) 
+		msg.post(scored, "score", {c_score}) -- this message isn't getting recieved by score gui script
 		msg.post("#", "disable")
 		msg.post(".", "release_input_focus")
 	end

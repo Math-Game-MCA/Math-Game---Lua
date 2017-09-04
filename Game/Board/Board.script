@@ -19,7 +19,7 @@ function start_game(self) -- sets up game by creating cards and operations
 	
 	-- Deck deals cards
 	local deck = msg.url("Deck#script")
-	msg.post(deck, "deal")
+	msg.post(deck, "deal", {game_type})
 	
 	local operations = msg.url("Operations#script")
 	msg.post(operations, "deal")
@@ -44,7 +44,7 @@ function end_game(self, bool) -- ends game by destroying objects
 	local solve = msg.url("/game/Gui/solve#gui")
 	msg.post(solve, "hide")
 	
-	--msg.post("Verify/Controller#verify", "reset")
+	msg.post("Verify/Controller#verify", "reset")
 	
 	local sidebar = msg.url("/game/Gui/sidebar#gui")
 	if (bool == true) then -- distinguish between ending round vs ending game
@@ -129,7 +129,12 @@ function on_message(self, message_id, message, sender)
      	print("END Game")
     	 end_game(self, true)
      	local main_menu = msg.url("/start/start#gui")
-		 msg.post(main_menu, "show")
+         local controller = msg.url("/level/controller#controller")
+		 if(game_type == "practice") then
+			msg.post(main_menu, "show")
+		else
+			msg.post(controller, "level_screen")
+		 end
      end
      
      if message_id == hash("Holder1") then
@@ -185,14 +190,15 @@ function on_message(self, message_id, message, sender)
 	 end
      
      if message_id == hash("game complete") then
-    	--if(game_type == "practice") then
+    	if(game_type == "practice") then
 			end_game(self, false)
 			local congrats = msg.url("/game/Gui/congrats#congrats")
 			msg.post(congrats, "show")
-    		print("CHECKPOINT")
-    	--else
-    	--	msg.post("#", "end")
-    	--end
+    		--print("CHECKPOINT")
+    	else
+    		local score = msg.url("/game/Gui/score#score")
+			msg.post(score, "show")
+    	end
      end
      
      if message_id == hash("next_round") then

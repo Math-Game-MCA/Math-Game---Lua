@@ -2,14 +2,23 @@ local numofcards = 6
 local cardsRemaining = 6
 local card1
 local card2
+local game_type
+local cardnum = {}
+local wait = true
 
 -- Deck deals with Card Creation
 
 function deal_cards(self)
 	self.card = {} -- Original Set of Cards
-	cardnum = {9, 12, 15, 18, 21, 24}
+	if game_type == "practice" then
+		cardnum = {9, 12, 15, 18, 21, 24, 1}
+	else
+		if wait then
+			--wait until message arrives with numbers
+		end
+	end
 	-- A function, number_generation will be created by Poojit/Kunal or function called recieve cards will get cards/solution from JSON
-	solution = 1 -- solution will be sent from database 
+	solution = cardnum[numofcards + 1] -- solution will be sent from database 
 	
 	for y = 1,numofcards do
      	local id = factory.create("#cardprototype", vmath.vector3((130*y), 580, 0.6), nil, {number = cardnum[y], ix = (130*y), iy = 580})
@@ -31,6 +40,8 @@ function shuffle_cards(self)
 			print("card deleted")
 		end
 	end --deletes cards that still exist and empties the array
+	cardsRemaining = numofcards
+	wait = true
 	card1 = nil
 	card2 = nil
 	print("Cards shuffled")
@@ -86,6 +97,7 @@ end
 function on_message(self, message_id, message, sender)
    if message_id == hash("deal") then
    		print("Cards dealt")
+           game_type = message[1]
    		deal_cards(self)
    end
    
@@ -123,6 +135,11 @@ function on_message(self, message_id, message, sender)
    		go.set(card2, "position", vmath.vector3(self.card[count2].x, self.card[count2].y, 1))  
    		card1 = nil
    		card2 = nil
-   end
+       end
+       
+    if message_id == hash("numbers") then -- set cardnum to this
+    	cardnum = message[1]
+    	wait = false
+    end
 end
 

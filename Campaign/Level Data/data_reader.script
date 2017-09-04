@@ -1,30 +1,29 @@
--- AS OF NOW, VALUES ARE HARDCODED - > will be changed such that numbers will be read into a file
+-- AS OF NOW, VALUES ARE HARDCODED - > will be changed such that numbers will be read from a file
+local NLEVELS = 5
+local NCARDS = 6
+local TYPE = "Integer"-- Will be added when other types of numbers are added
+local WORLD = "Arithmedia" -- Will be added when new worlds are added
+local data = {}
+
 function init(self)
-	-- Add initialization code here
-	-- Remove this function if not needed
-end
-
-function final(self)
-	-- Add finalization code here
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
+    for i=1,NLEVELS do
+      data[i] = {}     -- create a new row
+      for j=1,NCARDS + 1 do
+        data[i][j] = 0
+      end
+  end
+  data[1] = {1, 2, 3, 4, 5, 6, 9} --final number = solution
+  data[2] = {0, 3, 5, 10, 17, 21, 0}
+  data[3] = {2, 4, 8, 16, 32, 64, 32}
+  data[4] = {1, 1, 1, 1, 2, 2, 4}
+  data[5] = {3, 4, 5, 7, 12, 13, 25}
 end
 
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Remove this function if not needed
+	if message_id == hash("send") then -- Level Screen -> Game
+		pprint(data[message[1]])
+		local deck = msg.url("/game/Board/Deck#script")
+		msg.post(deck, "numbers", {data[message[1]]})
+	end
 end
 
-function on_input(self, action_id, action)
-	-- Add input-handling code here
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Remove this function if not needed
-end

@@ -1,5 +1,5 @@
 go.property("number", 1) -- default number is 1
---go.property("planet", "Arithmedia")
+go.property("planet", hash("Arithmedia"))
 local id
 
 function init(self)
@@ -19,7 +19,7 @@ function on_input(self, action_id, action)
 			--local board = msg.url("/game/Board/Board#Board")
 			local controller = msg.url("/level/controller#controller")
 			print("PARTY HARD")
-			msg.post(controller, "game")	
+			msg.post(controller, "game", {self.number, self.planet})	
 			--msg.post(board, "start") --To include more options to send
 		end
     end

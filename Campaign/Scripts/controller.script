@@ -19,7 +19,7 @@ function on_message(self, message_id, message, sender)
 		print("Level Screen")
 		go.delete_all(world_id)
 		levels_id = collectionfactory.create("#levelsfactory")
-		pprint(levels_id)
+		--pprint(levels_id)
 		lev_id = levels_id[hash("/level_generator")]
 		--print(lev_id)
 		msg.post(lev_id, "show", {world})
@@ -34,7 +34,17 @@ function on_message(self, message_id, message, sender)
 		print("Game Initiated")
 		msg.post(lev_id, "hide")
 		go.delete_all(levels_id)
-		load_id = msg.url("/level/loading#loading")
+		local reader = msg.url("/level/data#data_reader")
+		local load_id = msg.url("/level/loading#loading")
+		msg.post(reader, "send", {message[1]})
 		msg.post(load_id, "show")
+	end
+	if message_id == hash("level_screen") then -- Game -> Level Screen
+		print("Level Screen")
+		levels_id = collectionfactory.create("#levelsfactory")
+		--pprint(levels_id)
+		lev_id = levels_id[hash("/level_generator")]
+		--print(lev_id)
+		msg.post(lev_id, "show", {world})
 	end
 end
