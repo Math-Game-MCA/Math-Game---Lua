@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 local solution
 local game = false
 local c_score = 0 -- current score
@@ -77,3 +78,111 @@ function on_input(self, action_id, action)
 		end
 	end
 end
+=======
+local solution
+local game = false
+local c_score = 0 -- current score
+local f_score = 0 -- cumulative score
+local unpause_time = os.clock() --time when game is initialized, or unpaused
+local time_elapsed_pause = 0 --time elapsed when game is paused
+is_paused = false --global variable is a pretty hackish method right now
+
+function init(self)
+	msg.post("#", "disable")
+	msg.post(".", "release_input_focus")
+	--pos = gui.get_position("solution")
+end
+
+function get_c_score(self)
+	local time_elapsed = os.clock() - unpause_time + time_elapsed_pause
+	local buffer_time = 30 -- give player at least 30 seconds before reducing points
+	local effective_time_elapsed = math.max(0, time_elapsed - buffer_time)
+	local score = 1000 * math.exp(-effective_time_elapsed / 60)
+	return math.floor(score)
+end
+
+function update(self, dt)
+	if game then
+		--print(string.format("elapsed time: %.0f\n", os.clock() - round_init_time))
+		local time = gui.get_node("time")
+		
+		local seconds_elapsed = nil
+		
+		if is_paused then 
+		  seconds_elapsed = math.floor(time_elapsed_pause)
+		else 
+		  seconds_elapsed = math.floor(os.clock() - unpause_time + time_elapsed_pause)
+		end
+		
+		local minutes_elapsed = 0
+		
+		if math.floor(seconds_elapsed/60) >= 1 then
+		  minutes_elapsed = math.floor(seconds_elapsed/60)
+		  seconds_elapsed = seconds_elapsed %60
+		end 
+		
+		gui.set_text(time, minutes_elapsed .. ":"..string.format("%02d",seconds_elapsed))
+	end
+end		
+
+function start_clock(self)
+	f_score = f_score + c_score
+	local points = gui.get_node("score")
+	gui.set_text(points, tostring(f_score))
+	unpause_time = os.clock()
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("show") then
+		msg.post("#", "enable")
+		msg.post(".", "acquire_input_focus")
+		game = true
+		start_clock(self)
+	end
+
+	if message_id == hash("hide") then
+		game = false
+		local congrats = msg.url("congrats#congrats")
+		c_score = get_c_score(self)
+		msg.post(congrats, "score", {c_score}) 
+		msg.post("#", "disable")
+		msg.post(".", "release_input_focus")
+	end
+
+	if message_id == hash("end") then
+		game = false
+		c_score = 0
+		f_score = 0 
+		msg.post("#", "disable")
+		msg.post(".", "release_input_focus")
+	end
+	--[[if message_id == hash("solution") then
+		solution = message[1]
+		local solution = gui.get_node("solution_text")
+		gui.set_text(solution, message[1])
+		msg.post("/game/Board/Board#script", "solHolder", {gui.get_position(gui.get_node("solution"))}) -- sends position of solution holder
+	end--]]
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("drag") and action.pressed then
+		local exit = gui.get_node("exit")
+		local verify_button = gui.get_node("verify")
+		local pause_button = gui.get_node("pause")
+		if gui.pick_node(exit, action.x, action.y) then
+			msg.post("/game/Board/Board#script", "end")
+		end
+		if gui.pick_node(verify_button, action.x, action.y) then
+			msg.post("/game/Board/Verify/Controller#verify", "verify clicked")
+		end
+		if gui.pick_node(pause_button, action.x, action.y) then
+            if is_paused then
+                unpause_time = os.clock()
+            else
+                time_elapsed_pause = time_elapsed_pause + os.clock() - unpause_time
+            end
+            is_paused = not is_paused
+        end
+	end
+end
+>>>>>>> origin/master
