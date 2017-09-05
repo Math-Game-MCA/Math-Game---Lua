@@ -1,0 +1,19 @@
+-- file save and load logic to be added later, currently hard coded
+local num_of_levels = 5
+local user_completion = {}
+
+function init(self)
+	for y = 1,num_of_levels do
+     	user_completion[y] = 0
+     end -- Levels are set to incomplete
+     local controller = msg.url("/level/controller#controller")
+	msg.post(controller, "data", {user_completion})	
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("completion") then -- Game -> Level Screen
+		user_completion[message[1]] = 1
+		local controller = msg.url("/level/controller#controller")
+		msg.post(controller, "data", {user_completion})	
+	end
+end

@@ -1,5 +1,7 @@
 local numoflevels = 5
 local world = "Arithmedia"
+local completion = {hash("empty"), hash("full")}
+local data = {}
 
 function init(self)
 	--print("I'M ALIVE!")
@@ -10,10 +12,9 @@ end
 function display_levels(self)
 	self.level = {}
 	for y = 1,numoflevels do
-     	local f_id = factory.create("#level_factory", vmath.vector3(100+ (160*y), 350, 0.90), nil, {number = y})
-        self.level[y] = {id = f_id, number = y, planet = world} 
-		--print(f_id)
-     	--self.card[y] = {id = id, number = cardnum[y], x = (130*y), y = 580, count = y, connect = 0, exist = 1}
+     	local f_id = factory.create("#level_factory", vmath.vector3(100+ (160*y), 350, 0.90), nil, {number = y, star = completion[data[y] + 1]})
+        self.level[y] = {id = f_id, number = y, planet = world, star = completion[data[y] + 1]} 
+		--print("STAR: " .. self.level[y].star)
     end -- Creates Levels
 end
 
@@ -27,6 +28,8 @@ end
 function on_message(self, message_id, message, sender)
 	 if message_id == hash("show") then
            world = message[1]
+           data = message[2]
+           pprint(message[2])
            print(world)
    		display_levels(self)
      end

@@ -7,6 +7,7 @@ local operation_id
 local connect = {}
 local card1, card2, holder = 1,2,3
 local game_type
+local level
 
 -- Board deals with all Board interactions
 
@@ -84,16 +85,16 @@ function snap(self, id1, r1, r2, var)
 
 	if(p1.x < 300 and var == "card") then
 		type = 1
-		print("holder1")
+		--print("holder1")
 	elseif ((p1.x > 299 and p1.x < 650) and var == "op") then
 		type = 3
-		print("holder2")
+		--print("holder2")
 	elseif ((p1.x > 649 and p1.x < 800) and var == "card") then
 		type = 2
-		print("holder3")
+		--print("holder3")
 	elseif (p1.x > 800 and var == "card") then
 		type = 4
-		print("holder4")
+		--print("holder4")
 		msg.post("Verify/Controller#verify", "card snapped", {true})
 	end
 	
@@ -151,7 +152,7 @@ function on_message(self, message_id, message, sender)
      
      if message_id == hash("solHolder") then
      	solHolder_id = message[1]
-     	print(solHolder_id)
+     	--print(solHolder_id)
      end
      
      if message_id == hash("card_id") then
@@ -160,6 +161,10 @@ function on_message(self, message_id, message, sender)
      
      if message_id == hash("operation_id") then
      	operation_id = message[1]
+     end
+     
+     if message_id == hash("level") then
+    	level = message[1] 
      end
      
      if message_id == hash("card_released") then
@@ -197,7 +202,11 @@ function on_message(self, message_id, message, sender)
     		--print("CHECKPOINT")
     	else
     		local score = msg.url("/game/Gui/score#score")
+    		local user = msg.url("/level/user#user_data")
+    		msg.post(user, "completion", {level})
+    		--print("LEVELUS: " .. level)
 			msg.post(score, "show")
+			level = nil
     	end
      end
      

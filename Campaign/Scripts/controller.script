@@ -1,4 +1,5 @@
 local world = "Arithmedia"
+local data = {}
 
 -- Highway for switching between world and level menus
 
@@ -22,7 +23,7 @@ function on_message(self, message_id, message, sender)
 		--pprint(levels_id)
 		lev_id = levels_id[hash("/level_generator")]
 		--print(lev_id)
-		msg.post(lev_id, "show", {world})
+		msg.post(lev_id, "show", {world, data})
 	end
 	if message_id == hash("back") then -- Level Screen -> World Screen
 		print("World Screen")
@@ -36,15 +37,20 @@ function on_message(self, message_id, message, sender)
 		go.delete_all(levels_id)
 		local reader = msg.url("/level/data#data_reader")
 		local load_id = msg.url("/level/loading#loading")
+		local board = msg.url("/game/Board/Board#Board")
+		msg.post(board, "level", {message[1]})	
 		msg.post(reader, "send", {message[1]})
 		msg.post(load_id, "show")
 	end
 	if message_id == hash("level_screen") then -- Game -> Level Screen
 		print("Level Screen")
 		levels_id = collectionfactory.create("#levelsfactory")
-		--pprint(levels_id)
 		lev_id = levels_id[hash("/level_generator")]
-		--print(lev_id)
-		msg.post(lev_id, "show", {world})
+		--pprint("controller data: " .. data)
+		msg.post(lev_id, "show", {world, data})
+	end
+	if message_id == hash("data") then
+		data = message[1]
+		--pprint(data)
 	end
 end
