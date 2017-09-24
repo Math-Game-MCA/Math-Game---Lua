@@ -46,6 +46,9 @@ images {
 images {
   image: "/Main/images/exit.png"
 }
+images {
+  image: "/Main/images/transition_background.png"
+}
 margin: 0
 extrude_borders: 0
 inner_padding: 0

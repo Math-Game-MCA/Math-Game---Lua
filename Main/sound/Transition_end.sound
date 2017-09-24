@@ -1,0 +1,4 @@
+sound: "/Main/sound/Source/Transition End.wav"
+looping: 0
+group: "master"
+gain: 1.0

@@ -8,7 +8,13 @@ function on_message(self, message_id, message, sender)
  		--print("SHOWN")
        msg.post("#", "enable")
         msg.post(".", "acquire_input_focus")
-   end
+    end
+    if message_id == hash("animation_complete") then
+    	local board = msg.url("/game/Board/Board#Board")
+    	msg.post(board, "start", {"campaign"}) --To include more options to send
+	 		--msg.post("#", "disable")
+        	--msg.post(".", "release_input_focus")	
+    end
 end
 
 function on_input(self, action_id, action)
@@ -17,9 +23,10 @@ function on_input(self, action_id, action)
         local music = msg.url("/music/musicplayer#music_controller")
 
         if gui.pick_node(start, action.x, action.y) then
-			local board = msg.url("/game/Board/Board#Board")
+			local trans = msg.url("/game/Board/animation_controller#trans_control")
+			msg.post(trans, "transition")
 			msg.post(music, "button_click")		
-			msg.post(board, "start", {"campaign"}) --To include more options to send
+			--msg.post(board, "start", {"campaign"}) --To include more options to send
 	 		msg.post("#", "disable")
         	msg.post(".", "release_input_focus")
         end

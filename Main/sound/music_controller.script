@@ -18,6 +18,9 @@ function on_message(self, message_id, message, sender)
 		if message_id == hash("button_click") then
 			msg.post("#Button_click", "play_sound", {gain = 0.75})
 		end
+		if message_id == hash("transition_end") then
+			msg.post("#Transition_end", "play_sound")
+		end
 	end
 	if message_id == hash("mute") then
 		if mute == true then
