@@ -1,0 +1,4 @@
+sound: "/Main/sound/Source/Mouse Click.wav"
+looping: 0
+group: "master"
+gain: 1.0

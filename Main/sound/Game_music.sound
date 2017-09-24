@@ -1,0 +1,4 @@
+sound: "/Main/sound/Source/Game Music.wav"
+looping: 1
+group: "master"
+gain: 1.0

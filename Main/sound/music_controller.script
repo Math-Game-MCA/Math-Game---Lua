@@ -1,0 +1,38 @@
+local mute = false
+
+function init(self)
+	msg.post("#Menu_music", "play_sound", {gain = 0.5})
+end
+
+
+function on_message(self, message_id, message, sender)
+	if mute == false then
+		if message_id == hash("game_start") then
+			msg.post("#Game_music", "play_sound", {delay = 0.5, gain = 0.5})
+			msg.post("#Menu_music", "stop_sound")
+		end
+		if message_id == hash("game_end") then
+			msg.post("#Game_music", "stop_sound")
+			msg.post("#Menu_music", "play_sound", {delay = 0.5, gain = 0.5})
+		end
+		if message_id == hash("button_click") then
+			msg.post("#Button_click", "play_sound", {gain = 0.75})
+		end
+	end
+	if message_id == hash("mute") then
+		if mute == true then
+			msg.post("#Button_click", "play_sound", {gain = 0.75})
+			if message[1] == 0 then
+				msg.post("#Menu_music", "play_sound", {gain = 0.5})
+			else
+				msg.post("#Game_music", "play_sound", {gain = 0.5})
+			end
+			mute = false
+		else
+			msg.post("#Menu_music", "stop_sound")
+			msg.post("#Game_music", "stop_sound")
+			msg.post("#Button_click", "play_sound", {gain = 0.75})
+			mute = true
+		end	
+	end
+end

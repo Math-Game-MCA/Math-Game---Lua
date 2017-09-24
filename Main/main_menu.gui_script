@@ -10,9 +10,12 @@ function on_input(self, action_id, action)
         single = gui.get_node("Single")
         multi = gui.get_node("Multi")
         campaign = gui.get_node("Campaign")
+        sound = gui.get_node("Sound")
+        local music = msg.url("/music/musicplayer#music_controller")
 
         if gui.pick_node(single, action.x, action.y) then
             local custom = msg.url("/lobby/Customization/Custom#gui")
+			msg.post(music, "button_click")
 	 		msg.post(custom, "show")
 	 		msg.post("#", "disable")
         	msg.post(".", "release_input_focus")
@@ -20,6 +23,7 @@ function on_input(self, action_id, action)
         
         if gui.pick_node(multi, action.x, action.y) then
             local lobby = msg.url("/lobby/Lobby/Lobby#gui")
+            msg.post(music, "button_click")
 	 		msg.post(lobby, "show")
 	 		msg.post("#", "disable")
         	msg.post(".", "release_input_focus")
@@ -27,9 +31,13 @@ function on_input(self, action_id, action)
         
         if gui.pick_node(campaign, action.x, action.y) then
             local level = msg.url("/level/controller#controller")
+            msg.post(music, "button_click")
 	 		msg.post(level, "show")
 	 		msg.post("#", "disable")
         	msg.post(".", "release_input_focus")
+        end
+        if gui.pick_node(sound, action.x, action.y) then
+            msg.post(music, "mute", {0})
         end
     end
 end

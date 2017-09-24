@@ -1,0 +1,4 @@
+sound: "/Main/sound/Source/Menu Music.wav"
+looping: 1
+group: "master"
+gain: 1.0

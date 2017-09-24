@@ -27,6 +27,9 @@ function start_game(self) -- sets up game by creating cards and operations
 	
 	local sidebar = msg.url("/game/Gui/sidebar#gui")
 	msg.post(sidebar, "show")
+	
+	local music = msg.url("/music/musicplayer#music_controller")
+	msg.post(music, "game_start")
 end
 
 function end_game(self, bool) -- ends game by destroying objects
@@ -46,6 +49,9 @@ function end_game(self, bool) -- ends game by destroying objects
 	msg.post(solve, "hide")
 	
 	msg.post("Verify/Controller#verify", "reset")
+	
+	local music = msg.url("/music/musicplayer#music_controller")
+	msg.post(music, "game_end")
 	
 	local sidebar = msg.url("/game/Gui/sidebar#gui")
 	if (bool == true) then -- distinguish between ending round vs ending game
