@@ -76,6 +76,9 @@ images {
 images {
   image: "/Main/images/congrats.png"
 }
+images {
+  image: "/Main/images/pause_clicked.png"
+}
 margin: 0
 extrude_borders: 0
 inner_padding: 0
