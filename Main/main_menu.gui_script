@@ -4,6 +4,30 @@ function init(self)
     msg.post(".", "acquire_input_focus")
 end
 
+local function des(self)
+	msg.post("#", "disable")
+    msg.post(".", "release_input_focus")
+end
+
+local function anim_out(self, node, delay)
+        local to_color = gui.get_color(node)
+        to_color.w = 0.1
+        gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_OUT, 0.2, delay, des)
+end
+    
+local function anim_in(self, node, delay)
+         local to_color = gui.get_color(node)
+        to_color.w = 1
+        gui.animate(node, gui.PROP_COLOR, to_color, gui.EASING_IN, 0.2, delay)
+end    
+
+local function animate(self)
+			anim_out(self, gui.get_node("Multi"), 0.0)
+             anim_out(self, gui.get_node("Single"), 0.0)
+             anim_out(self, gui.get_node("Campaign"), 0.0)
+             anim_out(self, gui.get_node("background"), 0.1)	
+end
+
 -- Checks which button user pressed and sends them to either lobby or customization screen --
 function on_input(self, action_id, action)
     if action_id == hash("drag") and action.pressed then
@@ -16,25 +40,22 @@ function on_input(self, action_id, action)
         if gui.pick_node(single, action.x, action.y) then
             local custom = msg.url("/lobby/Customization/Custom#gui")
 			msg.post(music, "button_click")
-	 		msg.post(custom, "show")
-	 		msg.post("#", "disable")
-        	msg.post(".", "release_input_focus")
+             animate(self)
+             msg.post(custom, "show")
         end
         
         if gui.pick_node(multi, action.x, action.y) then
             local lobby = msg.url("/lobby/Lobby/Lobby#gui")
             msg.post(music, "button_click")
-	 		msg.post(lobby, "show")
-	 		msg.post("#", "disable")
-        	msg.post(".", "release_input_focus")
+             animate(self)
+             msg.post(lobby, "show")
         end
         
         if gui.pick_node(campaign, action.x, action.y) then
             local level = msg.url("/level/controller#controller")
             msg.post(music, "button_click")
-	 		msg.post(level, "show")
-	 		msg.post("#", "disable")
-        	msg.post(".", "release_input_focus")
+             animate(self)
+             msg.post(level, "show")
         end
         if gui.pick_node(sound, action.x, action.y) then
             msg.post(music, "mute", {0})
@@ -46,6 +67,10 @@ end
 function on_message(self, message_id, message, sender)
  if message_id == hash("show") then
  		print("SHOWN")
+         anim_in(self, gui.get_node("Multi"), 0.1)
+         anim_in(self, gui.get_node("Single"), 0.1)
+         anim_in(self, gui.get_node("Campaign"), 0.1)
+         anim_in(self, gui.get_node("background"), 0.0)	
        	msg.post("#", "enable")
         msg.post(".", "acquire_input_focus")
    	end
