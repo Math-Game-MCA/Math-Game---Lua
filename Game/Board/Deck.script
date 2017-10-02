@@ -93,19 +93,23 @@ end
 function number_generation()
 	math.randomseed(os.time())
 	-- Generate numbers with +, -, *
-	local result = math.random(25) - 1 -- 0 to 24
+	local result = math.random(24)
 	local number_table = {result}
 	for i=1,5 do
 		local next_op = math.random(3)
 		local biggest_num
+		local smallest_num
 		if next_op == 1 then
 			biggest_num = 24 - result
+			smallest_num = 0
 		elseif next_op == 2 then
-			biggest_num = result
+			biggest_num = result - 1
+			smallest_num = 0
 		elseif next_op == 3 then
 			biggest_num = math.floor(24 / result)
+			smallest_num = 1
 		end
-		local next_num = math.random(0, biggest_num)
+		local next_num = math.random(biggest_num)
 		table.insert(number_table, next_num)
 		if next_op == 1 then
 			result = result + next_num
