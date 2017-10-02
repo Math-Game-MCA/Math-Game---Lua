@@ -11,7 +11,7 @@ local wait = true
 function deal_cards(self)
 	self.card = {} -- Original Set of Cards
 	if game_type == "practice" then
-		cardnum = {9, 12, 15, 18, 21, 24, 1}
+		cardnum = number_generation()
 	else
 		if wait then
 			--wait until message arrives with numbers
@@ -91,7 +91,32 @@ function match_cards(self, id1, id2, op) --Sends the numbers of the cards to sol
 end
 
 function number_generation()
-	--Insert Code Here
+	math.randomseed(os.time())
+	-- Generate numbers with +, -, *
+	local result = math.random(25) - 1 -- 0 to 24
+	local number_table = {result}
+	for i=1,5 do
+		local next_op = math.random(3)
+		local biggest_num
+		if next_op == 1 then
+			biggest_num = 24 - result
+		elseif next_op == 2 then
+			biggest_num = result
+		elseif next_op == 3 then
+			biggest_num = math.floor(24 / result)
+		end
+		local next_num = math.random(0, biggest_num)
+		table.insert(number_table, next_num)
+		if next_op == 1 then
+			result = result + next_num
+		elseif next_op == 2 then
+			result = result - next_num
+		elseif next_op == 3 then
+			result = result * next_num
+		end
+	end
+	table.insert(number_table, result)
+	return number_table
 end
 
 function on_message(self, message_id, message, sender)
