@@ -37,8 +37,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 1170.0
-    y: 733.0
+    x: 1154.0
+    y: 717.0
     z: 0.0
     w: 1.0
   }
@@ -50,7 +50,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "campaign/background_faded"
+  texture: "campaign/loading_screen"
   id: "space"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -73,8 +73,8 @@ nodes {
 }
 nodes {
   position {
-    x: 567.369
-    y: 146.55
+    x: 316.739
+    y: 91.43
     z: 0.0
     w: 1.0
   }
@@ -91,8 +91,8 @@ nodes {
     w: 1.0
   }
   size {
-    x: 151.0
-    y: 69.0
+    x: 12.0
+    y: 12.0
     z: 0.0
     w: 1.0
   }
@@ -104,8 +104,8 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "sprites/forward_arrow"
-  id: "start"
+  texture: "campaign/loading_dot"
+  id: "dot1"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -127,8 +127,8 @@ nodes {
 }
 nodes {
   position {
-    x: 572.352
-    y: 392.791
+    x: 343.123
+    y: 91.43
     z: 0.0
     w: 1.0
   }
@@ -139,14 +139,14 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 5.0
-    y: 5.0
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
   size {
-    x: 200.0
-    y: 100.0
+    x: 12.0
+    y: 12.0
     z: 0.0
     w: 1.0
   }
@@ -156,36 +156,82 @@ nodes {
     z: 1.0
     w: 1.0
   }
-  type: TYPE_TEXT
+  type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  text: "LOADING"
-  font: "stencil"
-  id: "text"
+  texture: "campaign/loading_dot"
+  id: "dot2"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
-  outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  shadow {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
   adjust_mode: ADJUST_MODE_FIT
-  line_break: false
   layer: ""
   inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
   alpha: 1.0
-  outline_alpha: 1.0
-  shadow_alpha: 1.0
   template_node_child: false
-  text_leading: 1.0
-  text_tracking: 0.0
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 369.508
+    y: 91.43
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 12.0
+    y: 12.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "campaign/loading_dot"
+  id: "dot3"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  layer: ""
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

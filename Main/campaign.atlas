@@ -49,6 +49,12 @@ images {
 images {
   image: "/Main/images/transition_background.png"
 }
+images {
+  image: "/Main/images/loading_dot.png"
+}
+images {
+  image: "/Main/images/loading_screen.png"
+}
 margin: 0
 extrude_borders: 0
 inner_padding: 0

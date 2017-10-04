@@ -1,0 +1,31 @@
+function init(self)
+	msg.post("#", "disable")
+    msg.post(".", "release_input_focus")
+end
+
+local function finals(self)
+	msg.post("#", "disable")
+    msg.post(".", "release_input_focus")	
+end
+
+local function animate2(self)
+    gui.animate(gui.get_node("transition"), "position.x", -600, gui.EASING_OUTSINE, 1,0.8, finals)
+	local music = msg.url("/music/musicplayer#music_controller")
+	msg.post(music, "transition_end")
+	local load_id = msg.url("/level/loading#loading")
+	msg.post(load_id, "animation_complete")	
+end
+
+local function animate(self)
+	gui.animate(gui.get_node("transition"), "position.x", 590, gui.EASING_INSINE, 1.5, 0, animate2)	
+end
+
+function on_message(self, message_id, message, sender)
+	 if message_id == hash("transition") then
+		gui.set_render_order(2)
+		gui.set_position(gui.get_node("transition"), vmath.vector3(-600,370,1))
+        msg.post("#", "enable")
+        msg.post(".", "acquire_input_focus")
+        animate(self)
+    end
+end
