@@ -1,3 +1,4 @@
+-- Jason Li
 function init(self)
 	msg.post("#", "enable")
     msg.post(".", "acquire_input_focus")
