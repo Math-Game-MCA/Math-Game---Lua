@@ -1,7 +1,7 @@
 script: "/Main/main_menu.gui_script"
 fonts {
   name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  font: "/Main/fonts/larger.font"
 }
 textures {
   name: "sprites1"

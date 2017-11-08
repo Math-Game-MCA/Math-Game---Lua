@@ -92,8 +92,8 @@ embedded_components {
   "blend_mode: BLEND_MODE_ALPHA\n"
   "line_break: false\n"
   "text: \"1\"\n"
-  "font: \"/builtins/fonts/system_font.font\"\n"
-  "material: \"/builtins/fonts/label.material\"\n"
+  "font: \"/Main/fonts/larger.font\"\n"
+  "material: \"/builtins/fonts/font-df.material\"\n"
   ""
   position {
     x: 6.12

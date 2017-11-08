@@ -1,7 +1,7 @@
 script: "/Lobby/custom.gui_script"
 fonts {
   name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  font: "/Main/fonts/larger.font"
 }
 fonts {
   name: "stencil"
@@ -429,8 +429,8 @@ nodes {
 }
 nodes {
   position {
-    x: 146.00302
-    y: 312.38745
+    x: 151.956
+    y: 312.387
     z: 0.0
     w: 1.0
   }
@@ -491,8 +491,8 @@ nodes {
 }
 nodes {
   position {
-    x: 120.4118
-    y: 225.03484
+    x: 124.38
+    y: 225.035
     z: 0.0
     w: 1.0
   }

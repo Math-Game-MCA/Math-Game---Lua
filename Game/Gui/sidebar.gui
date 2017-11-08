@@ -1,7 +1,7 @@
 script: "/Game/Gui/sidebar.gui_script"
 fonts {
   name: "system_font"
-  font: "/builtins/fonts/system_font.font"
+  font: "/Main/fonts/larger.font"
 }
 textures {
   name: "sprites"
@@ -446,16 +446,12 @@ nodes {
   line_break: false
   layer: ""
   inherit_alpha: true
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_MANUAL
 }
 nodes {
   position {
@@ -512,16 +508,12 @@ nodes {
   line_break: false
   layer: ""
   inherit_alpha: true
-  clipping_mode: CLIPPING_MODE_NONE
-  clipping_visible: true
-  clipping_inverted: false
   alpha: 1.0
   outline_alpha: 1.0
   shadow_alpha: 1.0
   template_node_child: false
   text_leading: 1.0
   text_tracking: 0.0
-  size_mode: SIZE_MODE_MANUAL
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,4 +1,4 @@
-font: "/Main/fonts/STENCIL.TTF"
+font: "/builtins/fonts/vera_mo_bd.ttf"
 material: "/builtins/fonts/font-df.material"
 size: 15
 antialias: 1
