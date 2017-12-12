@@ -7,6 +7,9 @@ local operation_id
 local connect = {}
 local card1, card2, holder = 1,2,3
 local game_type
+local difficulty
+local number
+local operation
 local level
 
 -- Board deals with all Board interactions
@@ -125,10 +128,16 @@ function update(self, dt)
 end
 
 function on_message(self, message_id, message, sender)
-   	 if message_id == hash("start") then
+	if message_id == hash("start") then
      	print("START Game")
          game_type = message[1]
          print(game_type)
+         difficulty = message[2]
+         print(difficulty)
+         number = message[3]
+         print(number)
+         operation = message[4]
+         print(operation)
      	start_game(self) -- add more options to change parameters/constructor, ex. start_game(self, difficulty, mode)
      end
      

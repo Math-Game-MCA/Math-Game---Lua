@@ -4,20 +4,44 @@ function init(self)
     msg.post(".", "release_input_focus")
 end
 
--- Checks which button user pressed and sends them to either main menu or customization screen --
+-- for selecting respective options, 1 being lowest setting and 3 being highest, 0 being unselected --
+local difficulty = 0
+local number = 0
+local operation = 0
+
+-- Checks which button user pressed and sends them to either main menu, customization screen, or error screen --
 function on_input(self, action_id, action)
     if action_id == hash("drag") and action.pressed then
         forward = gui.get_node("forward")
         back = gui.get_node("back")
+        box1 = gui.get_node("box1")
+        box2 = gui.get_node("box2")
+        box3 = gui.get_node("box3")
+        box4 = gui.get_node("box4")
+        box5 = gui.get_node("box5")
+        box6 = gui.get_node("box6")
+        box7 = gui.get_node("box7")
+        box8 = gui.get_node("box8")
+        box9 = gui.get_node("box9")
         local music = msg.url("/music/musicplayer#music_controller")
 
         if gui.pick_node(forward, action.x, action.y) then
             --local game = msg.url("/game/game#game") code for dynamically creating board
-	 		local board = msg.url("/game/Board/Board#Board")
-			msg.post(music, "button_click")	
-			msg.post(board, "start", {"practice"}) --To include more options to send
-	 		msg.post("#", "disable")
-        	msg.post(".", "release_input_focus")
+
+	 		--if all options are selected, send to board--
+	 	   if difficulty ~= 0 and operation ~= 0 and number ~= 0 then
+				local board = msg.url("/game/Board/Board#Board")
+				msg.post(music, "button_click")	
+				msg.post(board, "start", {"practice", difficulty, number, operation}) --To include more options to send
+	 		    msg.post("#", "disable")
+        		msg.post(".", "release_input_focus")
+        	--if not, open window asking for a selection--
+        	else
+        		print("error window")
+        		msg.post(music, "button_click")
+        		local error1 = msg.url("/lobby/Customization/error#error")
+        		msg.post(error1, "show")
+        	end
         end
         
         if gui.pick_node(back, action.x, action.y) then
@@ -27,7 +51,69 @@ function on_input(self, action_id, action)
 	 		msg.post("#", "disable")
         	msg.post(".", "release_input_focus")
         end
+
+        if gui.pick_node(box1, action.x , action.y) then
+        	select(1)
+        elseif gui.pick_node(box2, action.x , action.y) then
+        	select(2)
+        elseif gui.pick_node(box3, action.x , action.y) then
+        	select(3)
+        elseif gui.pick_node(box4, action.x , action.y) then
+        	select(4)
+        elseif gui.pick_node(box5, action.x , action.y) then
+        	select(5)
+        elseif gui.pick_node(box6, action.x , action.y) then
+        	select(6)
+        elseif gui.pick_node(box7, action.x , action.y) then
+        	select(7)
+        elseif gui.pick_node(box8, action.x , action.y) then
+        	select(8)
+        elseif gui.pick_node(box9, action.x , action.y) then
+        	select(9)
+        end
+
     end
+end
+
+--for switching & selecting options --
+function select(box)
+	local music = msg.url("/music/musicplayer#music_controller")
+	msg.post(music, "button_click")
+
+	--lowest settings--
+	if box % 3 == 1 then
+		deselectBox1 = box + 1
+		deselectBox2 = box + 2
+		
+	--middle settings--	
+	elseif box % 3 == 2 then
+		deselectBox1 = box + 1
+		deselectBox2 = box - 1
+
+	-- highest settings --
+	elseif box % 3 == 0 then
+		deselectBox1 = box - 1
+		deselectBox2 = box - 2
+	end
+	
+	--clears other selections within the setting--
+	gui.set_texture(gui.get_node("box" .. (deselectBox1)), "sprites")
+	gui.play_flipbook(gui.get_node("box" .. (deselectBox1)), "checkbox") 
+	gui.set_texture(gui.get_node("box" .. (deselectBox2)), "sprites")
+	gui.play_flipbook(gui.get_node("box" .. (deselectBox2)), "checkbox") 
+	gui.set_texture(gui.get_node("box" .. box), "sprites")
+	gui.play_flipbook(gui.get_node("box" .. box), "checkboxclicked")
+		
+	--selecting which option is changed--
+	if box < 4 then
+		difficulty = box
+	elseif box < 7 then
+		number = box - 3
+	else 
+		operation = box - 6
+	end
+	
+	print(difficulty .. " " .. number .. " " .. operation)
 end
 
 -- Shows gui --
